@@ -4,10 +4,13 @@ const subdomain = {
 
   // Define subdomain route
   route: function(subdomain) {
-    if (req.hostname.match(/sub\./g)) {
+    if (subdomain === "" || subdomain === null) {
+      next();
+      return;
+    } else if (req.hostname.match(subdomain)) {
       next();
     } else {
-      next();
+      res.status(403);
     }
   }
 };
