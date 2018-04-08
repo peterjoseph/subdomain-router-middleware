@@ -1,0 +1,21 @@
+{
+  "name": "subdomain-router-middleware",
+  "version": "1.0.0",
+  "description": "Middleware for handling subdomains using Express and React",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/peterjoseph/subdomain-router-middleware.git"
+  },
+  "keywords": ["subdomain", "router", "express", "middleware"],
+  "author": "Peter Joseph",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/peterjoseph/subdomain-router-middleware/issues"
+  },
+  "homepage":
+    "https://github.com/peterjoseph/subdomain-router-middleware#readme"
+}
