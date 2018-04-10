@@ -10,12 +10,19 @@
     "type": "git",
     "url": "git+https://github.com/peterjoseph/subdomain-router-middleware.git"
   },
-  "keywords": ["subdomain", "router", "express", "middleware"],
+  "keywords": [
+    "subdomain",
+    "router",
+    "express",
+    "middleware"
+  ],
   "author": "Peter Joseph",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/peterjoseph/subdomain-router-middleware/issues"
   },
-  "homepage":
-    "https://github.com/peterjoseph/subdomain-router-middleware#readme"
+  "homepage": "https://github.com/peterjoseph/subdomain-router-middleware#readme",
+  "devDependencies": {
+    "express": "^4.16.3"
+  }
 }
