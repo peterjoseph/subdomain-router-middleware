@@ -24,5 +24,8 @@
   "homepage": "https://github.com/peterjoseph/subdomain-router-middleware#readme",
   "devDependencies": {
     "express": "^4.16.3"
+  },
+  "dependencies": {
+    "property-validator": "^0.8.2"
   }
 }

@@ -1,3 +1,6 @@
+const validate = require("property-validator").validate;
+const presence = require("property-validator").presence;
+
 let options = {
   asyncLoad: false,
   asyncFunc: null,
@@ -8,10 +11,20 @@ let options = {
 const subdomain = {
   // Define options with single object
   // Validate all keys in object
-  init: function() {
-    // Define asyncLoad object enabled
-    // Define asyncLoad subdomain list
-    // Define return failure object
+  init: function(newOptions) {
+    const validation = validate(newOptions, [
+      presence("asyncLoad"),
+      presence("asyncFunc"),
+      presence("invalid"),
+      presence("error")
+    ]);
+
+    // Store options if valid
+    if (validation.valid) {
+      options = newOptions;
+    } else {
+      throw "Subdomain options object invalid";
+    }
   },
 
   // Define subdomain route
