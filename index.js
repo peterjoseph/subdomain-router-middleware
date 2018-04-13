@@ -11,7 +11,7 @@ let options = {
 const subdomain = {
   // Define options with single object
   // Validate all keys in object
-  init: function(newOptions) {
+  init: function (newOptions) {
     let validation = validate(newOptions, [
       presence("asyncLoad"),
       presence("error")
@@ -26,29 +26,26 @@ const subdomain = {
   },
 
   // Define subdomain route
-  route: function(subdomain) {
-    return function(req, res, next) {
+  route: function (subdomain) {
+    return function (req, res, next) {
       const url = `${req.protocol}://${req.get("host")}${req.originalUrl}`;
       let regex = /(?:http[s]*\:\/\/)*(.*?)\.(?=[^\/]*\..{2,4})/;
 
+      // Alternative regex for localhost development environments
       if (process.env.NODE_ENV === "development") {
         regex = /(?:http[s]*\:\/\/)*(.*?)\.(?=[^\/]*)/;
       }
 
-      let route, i;
-      // Get the route from the url
-      if ((i = regex.exec(url)) !== null) {
-        i.forEach((match, groupIndex) => {
-          if (groupIndex == 1) {
-            route = match;
-          }
-        });
-      }
+      // Fetch domain through regex
+      let projectedDomain = url.match(regex);
+      projectedDomain && projectedDomain[1] ? projectedDomain = projectedDomain[1] : null;
+
       // If our subdomain is null, fetch list of required subdomains
       if ((subdomain == null || subdomain == "") && options.asyncLoad == true) {
         // Fetch our list of available subdomains
-      } else if ((route != null || route != "") && subdomain === route) {
+      } else if ((projectedDomain != null || projectedDomain != "") && subdomain === projectedDomain) {
         next();
+        return;
       } else {
         res.status(403).json(options.error);
       }
