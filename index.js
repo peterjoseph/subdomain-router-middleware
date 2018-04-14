@@ -4,7 +4,6 @@ const presence = require("property-validator").presence;
 let options = {
   asyncLoad: false,
   asyncFunc: null,
-  invalid: [],
   error: {}
 };
 
@@ -49,8 +48,18 @@ const subdomain = {
       // Fetch subdomain
       const projectedDomain = fetchSubdomain(req);
       // If our subdomain is null, fetch list of required subdomains
-      if ((subdomain == null || subdomain == "") && options.asyncLoad == true) {
+      if ((subdomain == null || subdomain == "") && options.asyncLoad === true) {
         // Fetch our list of available subdomains
+        options.asyncFunc().then(function (response) {
+          // Check if returned array contains the subdomain
+          if (response && Object.prototype.toString.call(response) === '[object Array]' && (response.indexOf(projectedDomain) > -1)) {
+            next();
+          } else {
+            res.status(403).json(options.error);
+          }
+        }).catch(function (e) {
+          res.status(403).json(options.error);
+        });
       } else if ((projectedDomain != null || projectedDomain != "") && subdomain === projectedDomain) {
         next();
         return;
